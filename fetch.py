@@ -3,6 +3,7 @@ from __future__ import absolute_import, print_function
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
+import json
 
 consumer_key="bOjysi6SN1aYrnEpw6hNCqbq3"
 consumer_secret="4R8ua9A898SVoaMOeI8RHRN8tf8y8TjBwPTnnF1IzqeoyKWhX1"
@@ -21,7 +22,9 @@ class StdOutListener(StreamListener):
         self.outputFile = open(filename, "w")
 
     def on_data(self, data):
-        self.outputFile.write(data)
+        tweet = json.loads(data)
+        json_doc = json.dumps(tweet, ensure_ascii=False)
+        self.outputFile.write(json_doc.encode('utf8') + '\n')
         return True
 
     def on_error(self, status):
