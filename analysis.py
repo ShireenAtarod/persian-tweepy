@@ -28,6 +28,16 @@ def analyseText(text):
     words = prepareText(text)
     return getListSentiment(words)
 
+def analyseTextDetailed(text):
+    words = prepareText(text)
+    result = []
+    for word in words:
+        s = getWordSentiment(word)
+        if not s == 0:
+            result.append((word, s))
+    if len(result) > 0:
+        print(result)
+
 if __name__ == '__main__':
     datafile = open('sample_output.json', 'r', encoding='utf-8-sig')
     outputfile = open('sample_output.txt', 'w', encoding='utf-8-sig')
@@ -35,6 +45,7 @@ if __name__ == '__main__':
     for line in datafile:
         text = json.loads(line)['text']
         outputfile.write(text + '\n' + str(analyseText(text)) + '\n\n\n')
+        analyseTextDetailed(text)
 
     datafile.close()
     outputfile.close()
