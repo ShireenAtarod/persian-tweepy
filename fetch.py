@@ -4,6 +4,7 @@ from tweepy import Stream
 import tweepy
 import sys
 import json
+import analysis
 
 consumer_key="bOjysi6SN1aYrnEpw6hNCqbq3"
 consumer_secret="4R8ua9A898SVoaMOeI8RHRN8tf8y8TjBwPTnnF1IzqeoyKWhX1"
@@ -45,5 +46,4 @@ if __name__ == '__main__':
                                     since="2017-6-1", 
                                     until="2017-6-9").items():
             json_doc = json.dumps(tweet._json, ensure_ascii=False)
-            print(json_doc, type(json_doc))
             outputFile.write(json_doc + '\n')
