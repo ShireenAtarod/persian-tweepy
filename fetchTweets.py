@@ -12,8 +12,6 @@ consumer_secret="4R8ua9A898SVoaMOeI8RHRN8tf8y8TjBwPTnnF1IzqeoyKWhX1"
 access_token="2577301532-7id9KDiUWVmASBGEyxgLxLLsf82jpiQATmd1wpD"
 access_token_secret="poHX33yflMYrsnDQsrW6TJ88OGmiHyg2kJFBPT77is15b"
 
-outputFile = open("output.json", "w", encoding="utf-8-sig")
-
 class TweepyListener(StreamListener):
     """ A listener handles tweets that are received from the stream.
     This is a basic listener that just prints received tweets to stdout.
@@ -31,19 +29,39 @@ class TweepyListener(StreamListener):
     def on_error(self, status):
         print(status)
 
+
+queries = {
+    "Samsung": "سامسونگ",
+    "FastFood": "فست فود",
+    "Hakoupian": "هاکوپیان",
+    "Suit": "کت و شلوار"
+}
+
 if __name__ == '__main__':
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
+    api = tweepy.API(auth)
 
-    if len(sys.argv) > 1 and sys.argv[1] == 'live':
-        listener = TweepyListener()
-        stream = Stream(auth, listener)
-        stream.filter(track=['هات داگ'])
-    else:
-        api = tweepy.API(auth)
+    # if len(sys.argv) > 1 and sys.argv[1] == 'live':
+    #     listener = TweepyListener()
+    #     stream = Stream(auth, listener)
+    #     stream.filter(track=['هات داگ'])
+    # else:
+    for key in queries:
+        outputNumber = 5
+        outputFilename = "output" + str(outputNumber) + key + ".txt"
+        outputFile = open(outputFilename, "w", encoding="utf-8-sig")
+
+        i = 0
         for tweet in tweepy.Cursor(api.search,  
-                                    q="هات داگ",
-                                    since="2017-6-1", 
-                                    until="2017-6-9").items():
-            json_doc = json.dumps(tweet._json, ensure_ascii=False)
-            outputFile.write(json_doc + '\n')
+                                    q=queries[key],
+                                    count=10000,
+                                    since="2018-1-9", 
+                                    until="2018-1-15").items():
+
+            text = '(' + str(i) + ')' + str(tweet.created_at) + '\n' + tweet.text
+            i += 1
+            outputFile.write(text + '\n\n\n')
+
+        outputFile.close()
+
