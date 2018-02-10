@@ -9,8 +9,8 @@ dir_files = os.listdir()
 output_files = [file for file in dir_files if file.startswith(
     'output') and file.endswith('.txt')]
 
-MERGE_RANGE_START = 1
-MERGE_RANGE_END = 5
+MERGE_RANGE_START = 7
+MERGE_RANGE_END = 7
 
 file_categories = {}
 for key in queries:
@@ -35,9 +35,10 @@ for key in file_categories:
     with open(file_name, 'a') as output:
         for file in file_categories[key]:
             with open(file, 'r') as input_file:
-                for line in input_file:
-                    if not line.startswith('\n') and not line.startswith('('):
-                        output.write(line)
+                content = input_file.read()
+                for tweet in content.split('\n\n'):
+                    tweet.replace('\n', ' ')
+                    output.write(tweet)
 
             input_file.close()
 

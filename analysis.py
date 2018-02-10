@@ -1,6 +1,11 @@
 import json
 import hazm
 
+import os
+import os.path
+from pathlib import Path
+
+
 sentimentJSON = json.loads(open('./dictionaries/dict.json', 'r', encoding='utf-8-sig').read())
 sentimentDICT = sentimentJSON['emotions']
 
@@ -39,13 +44,32 @@ def analyseTextDetailed(text):
         print(result)
 
 if __name__ == '__main__':
-    datafile = open('sample_output.json', 'r', encoding='utf-8-sig')
-    outputfile = open('sample_output.txt', 'w', encoding='utf-8-sig')
+    # datafile = open('sample_output.json', 'r', encoding='utf-8-sig')
+    # outputfile = open('sample_output.txt', 'w', encoding='utf-8-sig')
 
-    for line in datafile:
-        text = json.loads(line)['text']
-        outputfile.write(text + '\n' + str(analyseText(text)) + '\n\n\n')
-        analyseTextDetailed(text)
+    # for line in datafile:
+    #     text = json.loads(line)['text']
+    #     outputfile.write(text + '\n' + str(analyseText(text)) + '\n\n\n')
+    #     analyseTextDetailed(text)
 
-    datafile.close()
-    outputfile.close()
+    # datafile.close()
+    # outputfile.close()
+
+    dir_files = os.listdir()
+    output_files = [file for file in dir_files if file.startswith(
+        'merged') and file.endswith('.txt')]
+
+    for file_name in output_files:
+        with open(file_name, 'r') as file:
+            with open('sentiments-' + file_name, 'w') as output_file:
+                output_file.close()
+            
+            with open('sentiments-' + file_name, 'a') as output_file:
+                for tweet in file:
+                    sentiment = analyseText(tweet)
+                    output_file.write(tweet)
+                    output_file.write(str(sentiment) + '\n\n')
+
+                output_file.close()
+
+        file.close()
