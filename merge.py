@@ -9,8 +9,8 @@ dir_files = os.listdir()
 output_files = [file for file in dir_files if file.startswith(
     'output') and file.endswith('.txt')]
 
-MERGE_RANGE_START = 5
-MERGE_RANGE_END = 6
+MERGE_RANGE_START = 11
+MERGE_RANGE_END = 11
 
 file_categories = {}
 for key in queries:
@@ -37,7 +37,8 @@ for key in file_categories:
             with open(file, 'r') as input_file:
                 content = input_file.read()
                 for tweet in content.split('\n\n'):
-                    tweet.replace('\n', ' ')
+                    tweet = tweet.replace('\n', ' ')
+                    tweet += '\n'
                     output.write(tweet)
 
             input_file.close()

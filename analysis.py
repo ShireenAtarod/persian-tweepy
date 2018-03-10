@@ -44,17 +44,6 @@ def analyseTextDetailed(text):
         print(result)
 
 if __name__ == '__main__':
-    # datafile = open('sample_output.json', 'r', encoding='utf-8-sig')
-    # outputfile = open('sample_output.txt', 'w', encoding='utf-8-sig')
-
-    # for line in datafile:
-    #     text = json.loads(line)['text']
-    #     outputfile.write(text + '\n' + str(analyseText(text)) + '\n\n\n')
-    #     analyseTextDetailed(text)
-
-    # datafile.close()
-    # outputfile.close()
-
     dir_files = os.listdir()
     output_files = [file for file in dir_files if file.startswith(
         'merged') and file.endswith('.txt')]
