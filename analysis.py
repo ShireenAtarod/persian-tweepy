@@ -29,6 +29,14 @@ def prepareText(text):
     words = [stemmer.stem(token) for token in tokens]
     return words
 
+def countTextWords(text):
+    normalizer = hazm.Normalizer()
+    text = normalizer.normalize(text)
+    tokens = hazm.word_tokenize(text)
+    stemmer = hazm.Stemmer()
+    words = [stemmer.stem(token) for token in tokens]
+    return len(words)
+
 def analyseText(text):
     words = prepareText(text)
     return getListSentiment(words)

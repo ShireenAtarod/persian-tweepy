@@ -1,0 +1,40 @@
+#tableContainer,
+#tableContainer tbody {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-family: monospace;
+}
+
+#tableContainer tbody tr {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #fff;
+}
+
+#tableContainer tbody tr:nth-child(2n) {
+  background-color: #eee;
+}
+
+#tableContainer tbody tr:first-child td {
+  font-size: 110%;
+  font-weight: bold;
+}
+
+#tableContainer tbody tr td {
+  text-align: center;
+  padding: 10px 0;
+  width: 22.5%;
+}
+
+#tableContainer tbody tr td:first-child {
+  width: 10%;
+}
+
+#tableContainer tbody tr td ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}

@@ -7,21 +7,23 @@ dir_files = os.listdir('..')
 output_files = [file for file in dir_files if file.startswith(
     'sentiments') and file.endswith('.txt')]
 
-meta = {}
+meta = []
 weeks = []
 categories = []
 for file in output_files:
     i = file.index('-')
-    week = file[10:i]
+    week = int(file[10:i]) - 1
     category = file[i+7:file.index('.txt')]
-    weeks.append(week)
+    if week not in weeks:
+        weeks.append(week)
     categories.append(category)
 
+weeks.sort()
 for week in weeks:
-    meta[week] = {}
+    meta.append({})
     for category in categories:
         meta[week][category] = {}
-        file_name = '../sentiments' + week + '-merged' + category + '.txt'
+        file_name = '../sentiments' + str(week + 1) + '-merged' + category + '.txt'
         max_index = -1
         with open(file_name, 'r') as sentiments:
             content = sentiments.read()
