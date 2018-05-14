@@ -56,12 +56,14 @@ if __name__ == '__main__':
     output_files = [file for file in dir_files if file.startswith(
         'merged') and file.endswith('.txt')]
 
+    weekNumber = 15
+
     for file_name in output_files:
         with open(file_name, 'r') as file:
-            with open('sentiments-' + file_name, 'w') as output_file:
+            with open('sentiments' + str(weekNumber) + '-' + file_name, 'w') as output_file:
                 output_file.close()
             
-            with open('sentiments-' + file_name, 'a') as output_file:
+            with open('sentiments' + str(weekNumber) + '-' + file_name, 'a') as output_file:
                 for tweet in file:
                     sentiment = analyseText(tweet)
                     output_file.write(tweet)
