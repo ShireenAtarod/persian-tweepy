@@ -6,20 +6,24 @@ import os.path
 from pathlib import Path
 
 
-sentimentJSON = json.loads(open('./dictionaries/dict.json', 'r', encoding='utf-8-sig').read())
+sentimentJSON = json.loads(
+    open('./dictionaries/dict.json', 'r', encoding='utf-8-sig').read())
 sentimentDICT = sentimentJSON['emotions']
+
 
 def getWordSentiment(word):
     for key in sentimentDICT:
         if word == key:
             return sentimentDICT[key]
-    return 0 # not important/not in dictionary
+    return 0  # not important/not in dictionary
+
 
 def getListSentiment(words):
     sentiment = 0
     for word in words:
         sentiment += getWordSentiment(word)
     return sentiment
+
 
 def prepareText(text):
     normalizer = hazm.Normalizer()
@@ -29,6 +33,7 @@ def prepareText(text):
     words = [stemmer.stem(token) for token in tokens]
     return words
 
+
 def countTextWords(text):
     normalizer = hazm.Normalizer()
     text = normalizer.normalize(text)
@@ -37,9 +42,11 @@ def countTextWords(text):
     words = [stemmer.stem(token) for token in tokens]
     return len(words)
 
+
 def analyseText(text):
     words = prepareText(text)
     return getListSentiment(words)
+
 
 def analyseTextDetailed(text):
     words = prepareText(text)
@@ -51,18 +58,19 @@ def analyseTextDetailed(text):
     if len(result) > 0:
         print(result)
 
+
 if __name__ == '__main__':
     dir_files = os.listdir()
     output_files = [file for file in dir_files if file.startswith(
         'merged') and file.endswith('.txt')]
 
-    weekNumber = 16
+    weekNumber = 17
 
     for file_name in output_files:
         with open(file_name, 'r') as file:
             with open('sentiments' + str(weekNumber) + '-' + file_name, 'w') as output_file:
                 output_file.close()
-            
+
             with open('sentiments' + str(weekNumber) + '-' + file_name, 'a') as output_file:
                 for tweet in file:
                     sentiment = analyseText(tweet)

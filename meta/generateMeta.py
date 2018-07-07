@@ -13,7 +13,7 @@ categories = []
 for file in output_files:
     i = file.index('-')
     week = int(file[10:i]) - 1
-    category = file[i+7:file.index('.txt')]
+    category = file[i + 7:file.index('.txt')]
     if week not in weeks:
         weeks.append(week)
     categories.append(category)
@@ -23,7 +23,8 @@ for week in weeks:
     meta.append({})
     for category in categories:
         meta[week][category] = {}
-        file_name = '../sentiments' + str(week + 1) + '-merged' + category + '.txt'
+        file_name = '../sentiments' + \
+            str(week + 1) + '-merged' + category + '.txt'
         max_index = -1
         with open(file_name, 'r') as sentiments:
             content = sentiments.read()
@@ -57,14 +58,14 @@ for week in weeks:
                                 meta[week][category]['negatives'] = 1
                             else:
                                 meta[week][category]['negatives'] += 1
-                        
+
             if 'tweets' not in meta[week][category].keys():
                 meta[week][category]['tweets'] = 0
             if 'positives' not in meta[week][category].keys():
                 meta[week][category]['positives'] = 0
             if 'negatives' not in meta[week][category].keys():
                 meta[week][category]['negatives'] = 0
-            
+
             sentiments.close()
 
 result = json.dumps(meta)
