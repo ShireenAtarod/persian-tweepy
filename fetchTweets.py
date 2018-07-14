@@ -50,7 +50,7 @@ if __name__ == '__main__':
     #     stream.filter(track=['هات داگ'])
     # else:
     for key in queries:
-        outputNumber = 17
+        outputNumber = 18
         outputFilename = "output" + str(outputNumber) + key + ".txt"
         outputFile = open(outputFilename, "w", encoding="utf-8-sig")
 
@@ -58,8 +58,8 @@ if __name__ == '__main__':
         for tweet in tweepy.Cursor(api.search,
                                    q=queries[key],
                                    count=30000,
-                                   since="2018-7-01",
-                                   until="2018-7-07").items():
+                                   since="2018-7-08",
+                                   until="2018-7-14").items():
 
             text = '(' + str(i) + ')' + \
                 str(tweet.created_at) + '\n' + tweet.text

@@ -64,7 +64,7 @@ if __name__ == '__main__':
     output_files = [file for file in dir_files if file.startswith(
         'merged') and file.endswith('.txt')]
 
-    weekNumber = 17
+    weekNumber = 18
 
     for file_name in output_files:
         with open(file_name, 'r') as file:
