@@ -9,8 +9,8 @@ dir_files = os.listdir()
 output_files = [file for file in dir_files if file.startswith(
     'output') and file.endswith('.txt')]
 
-MERGE_RANGE_START = 18
-MERGE_RANGE_END = 18
+MERGE_RANGE_START = 19
+MERGE_RANGE_END = 19
 
 file_categories = {}
 for key in queries:

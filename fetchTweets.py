@@ -50,7 +50,7 @@ if __name__ == '__main__':
     #     stream.filter(track=['هات داگ'])
     # else:
     for key in queries:
-        outputNumber = 18
+        outputNumber = 19
         outputFilename = "output" + str(outputNumber) + key + ".txt"
         outputFile = open(outputFilename, "w", encoding="utf-8-sig")
 
